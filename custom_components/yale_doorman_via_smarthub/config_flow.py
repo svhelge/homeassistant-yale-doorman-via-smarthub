@@ -49,7 +49,7 @@ class YaleDoormanViaSmarthubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN
     @staticmethod
     @callback
     def async_get_options_flow(config_entry):
-        return YaleDoormanViaSmarthubOptionsFlowHandler(config_entry)
+        return YaleDoormanViaSmarthubOptionsFlowHandler()
 
     async def _show_config_form(self, user_input):
         return self.async_show_form(
@@ -67,11 +67,8 @@ class YaleDoormanViaSmarthubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN
 
 class YaleDoormanViaSmarthubOptionsFlowHandler(config_entries.OptionsFlow):
 
-    def __init__(self, config_entry):
-        self.config_entry = config_entry
-        self.options = dict(config_entry.options)
-    
     async def async_step_init(self, user_input=None):
+        self.options = dict(self.config_entry.options)
         return await self.async_step_user()
     
     async def async_step_user(self, user_input=None):
